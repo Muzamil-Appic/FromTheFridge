@@ -15,6 +15,7 @@ import firestore from '@react-native-firebase/firestore';
 
 
 import FavouriteColorfull from '../../Assets/Icons/FavouriteColorfull.svg'
+import { SafeAreaView } from 'react-native-safe-area-context';
 export default function FindRecipes({ navigation, route }) {
     const isFocused = useIsFocused();
     const loginpersonid = firebase.auth().currentUser.email
@@ -289,7 +290,7 @@ export default function FindRecipes({ navigation, route }) {
     }
 
     return (
-        <View style={Styles.Container}>
+        <SafeAreaView style={Styles.Container}>
             <View
                 style={Styles.headerview}>
                 <TouchableOpacity
@@ -328,6 +329,6 @@ export default function FindRecipes({ navigation, route }) {
 
             }
 
-        </View>
+        </SafeAreaView>
     )
 }

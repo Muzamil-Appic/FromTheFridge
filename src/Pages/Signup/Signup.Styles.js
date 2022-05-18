@@ -7,7 +7,8 @@ import Colors from '../../Global/Colors';
 import FontSize from '../../Global/FontSizes';
 const Styles = StyleSheet.create({
   Container: {
-    flex:1,
+    height: hp(100),
+    width: wp(100),
   },
   textinpt: {
     fontSize: FontSize.font14,

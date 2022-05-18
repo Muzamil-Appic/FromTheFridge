@@ -31,7 +31,7 @@ export default function ForgotPassword({ navigation }) {
     }
 
     auth()
-      .sendPasswordResetEmail(email)
+        .sendPasswordResetEmail(email.trim().toLowerCase())
       .then(function () {
         console.log("Succed");
         alert("Your Password is send to your email")
@@ -44,7 +44,7 @@ export default function ForgotPassword({ navigation }) {
         {
           alert("Email is not valid")
         }
-        console.log(error.code);
+        alert("Email is not valid")
       });
   }
 
@@ -52,8 +52,8 @@ export default function ForgotPassword({ navigation }) {
 
 
   return (
-    <SafeAreaView style={Styles.Container}>
-      <View style={{ position: 'absolute', top: hp(3), left: wp(5) }}>
+   <SafeAreaView style={{flex:1}}>
+      <View style={{ position: 'absolute', top: hp(5), left: wp(5) }}>
         <TouchableOpacity onPress={() => navigation.goBack()}>
           <Ionicons
             name="chevron-back-outline"
@@ -99,6 +99,6 @@ export default function ForgotPassword({ navigation }) {
           </TouchableOpacity>
         </View>
       </View>
-    </SafeAreaView>
+      </SafeAreaView>
   );
 }

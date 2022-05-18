@@ -18,7 +18,6 @@ import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 
 
 
-
 //firebase
 import auth from '@react-native-firebase/auth';
 import { firebase } from '@react-native-firebase/auth'
@@ -282,10 +281,9 @@ export default function Signup({ navigation }) {
   };
 
   return (
-    <SafeAreaView style={Styles.Container}>
     <ScrollView>
-      
-        <View style={{ position: 'absolute', top: hp(3), left: wp(5) }}>
+      <SafeAreaView style={Styles.Container}>
+        <View style={{ position: 'absolute', top: hp(5), left: wp(5) }}>
           <TouchableOpacity onPress={() => navigation.goBack()}>
             <Ionicons
               name="chevron-back-outline"
@@ -575,13 +573,13 @@ export default function Signup({ navigation }) {
           </View>
         </Modal>
 
-        </ScrollView>
+
 
       </SafeAreaView>
 
 
 
-   
+    </ScrollView>
   );
 }
 

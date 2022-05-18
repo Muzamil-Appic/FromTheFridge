@@ -9,7 +9,7 @@ import {
 import React from 'react';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import Styles from './Recepies.Styles';
+import Styles from './Recipies.Styles'
 import {
   heightPercentageToDP as hp,
   widthPercentageToDP as wp,
@@ -17,9 +17,9 @@ import {
 import Colors from '../../Global/Colors';
 import FontSize from '../../Global/FontSizes';
 import Entypo from 'react-native-vector-icons/Entypo';
-
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons'
 import { responsiveScreenHeight as rh, responsiveScreenWidth as rw } from 'react-native-responsive-dimensions';
+
 export default function Recepies({ navigation }) {
   //   const renderfunction = ({item}) => {
   //     console.log(item);
@@ -28,7 +28,37 @@ export default function Recepies({ navigation }) {
   //     );
   //   };
 
-
+  const DATA = [
+    {
+      recepieName: 'Apple Tart',
+      category: 'Apple Recepie content',
+      cookingtime: '20',
+      calories: '99',
+      fat: '11.4',
+      carbs: '26',
+      protien: '0',
+      id: 0,
+      img:'empty'
+    },
+    {
+      recepieName: 'Apple Tart',
+      category: 'Apple Recepie content',
+      cookingtime: '20',
+      calories: '99',
+      fat: '11.4',
+      carbs: '26',
+      protien: 1,
+    },
+    {
+      recepieName: 'Apple Tart',
+      category: 'Apple Recepie content',
+      cookingtime: '20',
+      calories: '99',
+      fat: '11.4',
+      carbs: '26',
+      protien: 3,
+    },
+  ];
 
   const renderfunction = ({ item }) => {
     console.log(item);
@@ -43,7 +73,7 @@ export default function Recepies({ navigation }) {
           borderRadius: 10,
           marginBottom: 15,
           flexDirection: 'row',
-
+          
         }}>
         <View style={{ width: wp(70), flexDirection: 'row', backgroundColor: Colors.purple }}>
           <Image
@@ -62,8 +92,7 @@ export default function Recepies({ navigation }) {
     );
   };
   return (
-
-    <SafeAreaView style={Styles.Container}>
+    <View style={Styles.Container}>
       <View style={Styles.header}>
         <TouchableOpacity
           onPress={() => navigation.goBack()}
@@ -86,12 +115,9 @@ export default function Recepies({ navigation }) {
           data={DATA}
           renderItem={renderfunction}
           keyExtractor={item => item.id}
-          contentContainerStyle={{ paddingBottom: rh(5) }}
+          contentContainerStyle={{  paddingBottom:rh(5)}}
         />
       </View>
-
-    </SafeAreaView>
-
+    </View>
   );
 }
-

@@ -12,7 +12,6 @@ import ForgotPassword from '../Pages/ForgotPassword/ForgotPassword';
 import OtpReceived from '../Pages/OtpReceived/OtpReceived';
 import TabBarNavigations from './TabBarNavigations';
 import Selectedingredients from '../Pages/SelectedIngredients/Selectedingredients';
-import Recepies from '../Pages/Recepies/Recepies';
 import Dataenter from '../Pages/dataenterpage/dataenter';
 import FindRecipes from '../Pages/FindRecipes/FindRecipes';
 import Filter from '../Pages/Filter/Filter';
@@ -21,7 +20,9 @@ import Search from '../Search/Search';
 import RecipiesDescription from '../Pages/RecipieDescription/RecipiesDescription';
 
 
+
 import Home from '../Pages/Home/Home'
+import RecipiesPage from '../Pages/RecipiesPage/RecipiesPage';
 
 //Navigationobjects
 const Stack = createNativeStackNavigator();
@@ -44,12 +45,12 @@ export default function StackNavigations() {
         <Stack.Screen name="OtpReceived" component={OtpReceived} />
         <Stack.Screen name='TabNavigations' component={TabBarNavigations} />
         <Stack.Screen name='Selectedingredients' component={Selectedingredients} />
-        <Stack.Screen name='Recepies' component={Recepies} />
         <Stack.Screen name='FindRecipes' component={FindRecipes} />
         <Stack.Screen name='Filter' component={Filter} />
         <Stack.Screen name='Profile' component={Profile} />
         <Stack.Screen name='Search' component={Search} />
         <Stack.Screen name='RecipiesDescription' component={RecipiesDescription} />
+        <Stack.Screen name='RecipiesPage' component={RecipiesPage}/>
 
         
         

@@ -80,8 +80,6 @@ export default function TabBarNavigations() {
               <View
                 style={{
                   marginTop: rh(3),
-                  
-
                   left: rw(5),
                   justifyContent: 'center',
                   alignItems: 'center',
