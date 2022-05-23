@@ -28,6 +28,9 @@ export default function Profile({ navigation }) {
     const getuserrecord = () => {
         setloader(true)
         let user = firebase.auth().currentUser.email
+
+       // let user = "muzamilappic@gmail.com"
+        //firebase.auth().currentUser.email
         firestore()
             .collection('Users')
             .doc(user)

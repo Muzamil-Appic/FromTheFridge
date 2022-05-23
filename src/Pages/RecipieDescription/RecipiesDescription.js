@@ -537,7 +537,7 @@ export default function RecipiesDescription({ navigation, route }) {
         )
             .then((response) => response.json())
             .then((response) => {
-                //  console.log(response);
+                  console.log("recippppppppp",response);
                 setDaat(response);
             })
             .catch((err) => console.error(err));
@@ -619,7 +619,7 @@ export default function RecipiesDescription({ navigation, route }) {
         )
             .then((response) => response.json())
             .then((response) => {
-                // console.log("Recipies ingredients------->", response);
+                 console.log("Recipies ingredients------->", response);
                 // setDaat(response);
             })
             .catch((err) => console.error(err));

@@ -3,6 +3,7 @@ import React, { useEffect } from 'react'
 import { NavigationContainer, useNavigation } from '@react-navigation/native';
 import { heightPercentageToDP as hp, widthPercentageToDP as wp } from 'react-native-responsive-screen';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import SplashLogo from '../../Assets/Icons/SplashLogo.svg'
 
 import Appicon from '../../Assets/Icons/AppIcon.svg'
 export default function Splash({ navigation }) {
@@ -16,6 +17,12 @@ export default function Splash({ navigation }) {
   useEffect(() => {
     asun()
   }, [])
+
+
+  // useEffect(() => {
+  //   //  asun()
+  //   navigation.replace('Home')
+  //   }, [])
 
 
   const asun = async () => {
@@ -40,7 +47,7 @@ export default function Splash({ navigation }) {
   return (
 
     <View style={{ flex: 1, justifyContent: 'center', alignItems: "center" }}>
-      <Appicon height={'150px'} width={'150px'} />
+      <SplashLogo height={'150px'} width={'150px'} />
     </View>
   )
 }

@@ -33,6 +33,11 @@ export default function Selectedingredients({ navigation, route }) {
   const [loadertwo, setloadertwo] = useState(true)
   const isFocused = useIsFocused();
 
+
+
+console.log("Holding One",route?.params?.holdingredients);
+console.log("Holding Two",route?.params?.holdingredientstwo);
+
   useEffect(() => {
   //   setloader(true)
   //   getdatafromkitchen();
@@ -47,16 +52,20 @@ export default function Selectedingredients({ navigation, route }) {
   const getdatafromkitchen = () => {
     let values=[]
   
-    route?.params?.kitchenData.map((e) => {
+    route?.params?.holdingredientstwo.map((e) => {
       if (e.selected === true) {
         values.push(e);
       }
     })
-    route?.params?.FullKitchenData.map((e) => {
+    route?.params?.holdingredients.map((e) => {
       if (e.selected === true) {
         console.log(e)
         values.push(e);
       }
+      else{
+        console.log(e);
+      }
+      console.log("----->",e);
     })
     // data.map((e) => {
     //   newdata.push(e)
@@ -98,7 +107,7 @@ export default function Selectedingredients({ navigation, route }) {
 
 
   const renderfunction = ({ item, index }) => {
-     console.log("Selected Ingredinets From Home----->",item);
+    // console.log("Selected Ingredinets From Home----->",item);
     return (
       <View onPress={() => { quickcheckedvalue(item, index) }}
         style={{

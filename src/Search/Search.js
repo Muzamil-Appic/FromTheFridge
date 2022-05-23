@@ -46,7 +46,7 @@ export default function Search({ navigation }) {
 
 
   const nextfunction = (item) => {
-    console.log(item);
+    console.log("its our items taht get",item);
     // setrecord('')
     // settxtinputalue('')
     navigation.navigate('RecipiesDescription', item)
@@ -74,7 +74,7 @@ export default function Search({ navigation }) {
 
               <View style={{ height: rh(5), width: rw(80), left: rw(2) }}>
                 <View style={{ height: rh(5), justifyContent: "center" }}>
-                  <Text numberOfLines={1} style={{ fontSize: FontSize.font16, color: Colors.black, fontWeight: '700', width: rw(70) }}>{item.title}</Text>
+                  <Text numberOfLines={1} style={{ fontSize: FontSize.font16, color: Colors.black, fontWeight: '700', width: rw(70) }}>{item?.title}</Text>
                 </View>
 
 

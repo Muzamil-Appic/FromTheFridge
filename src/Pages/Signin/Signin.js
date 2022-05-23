@@ -13,6 +13,7 @@ import Colors from '../../Global/Colors';
 import FontSize from '../../Global/FontSizes';
 import ActivityLoader from '../../Components/ActivityLoader'
 import { GoogleSignin } from '@react-native-google-signin/google-signin';
+import { LoginManager, AccessToken,GraphRequestManager ,GraphRequest} from 'react-native-fbsdk-next';
 
 GoogleSignin.configure({
   webClientId: '324447483484-7g1ue1gd2eeqb6te3e57sqied9edc33k.apps.googleusercontent.com',
@@ -59,12 +60,12 @@ export default function Signin({ navigation }) {
     await AsyncStorage.getItem('userdetails').then(async value => {
       let data = JSON.parse(value);
       let useremail = data?.id
-      console.log("------00000>", useremail);
+      console.log("user login hay", useremail);
       if (useremail) {
         navigation.replace('TabNavigations')
       }
       else {
-        console.log("YH wala chal rha hay hay na");
+        console.log("user login nhi hay");
         navigation.navigate('Signin')
       }
 
@@ -74,7 +75,114 @@ export default function Signin({ navigation }) {
   }
 
 
+//   const onFacebookButtonPress=async()=>{
+//     console.log('====================================');
+//     console.log("ok");
+//     console.log('====================================');
+//        const result = await LoginManager.logInWithPermissions(['public_profile', 'email']);
+// console.log(result);
 
+//   }
+
+const loginWithfacebookHandler = async () => {
+  // if(LoginManager.getInstance()!=null){
+  // LoginManager.getInstance().logOut();
+  // }
+  // console.log(LoginManager.getI)
+  // await Clear('user');
+  // await Clear('bio');
+ // LoginManager.logOut();
+  LoginManager.logInWithPermissions(['public_profile', 'email']).then(
+    function (result) {
+      if (result.isCancelled) {
+      
+        console.log('Login cancelled');
+      } else {
+        console.log('Login success with permissions: ' + result);
+        console.log("Its results",result);
+        AccessToken.getCurrentAccessToken().then(async data => {
+          const processRequest = new GraphRequest(
+            '/me?fields=name,email,picture.type(large)',
+            null,
+            await getResponseInfo,
+          );
+          // Start the graph request.
+          new GraphRequestManager().addRequest(processRequest).start();
+
+          const {accessToken} = data;
+          const facebookCredential =
+            auth.FacebookAuthProvider.credential(accessToken);
+
+          // Sign-in the user with the credential
+          // console.log(facebookCredential);
+          await auth()
+            .signInWithCredential(facebookCredential)
+           .then(e=>{
+             console.log(6666);
+           });
+
+          // initUser(accessToken);
+        });
+      }
+    },
+    function (error) {
+      console.log('Login fail with error: ' + error);
+      // showMessage({
+      //   type: 'info',
+      //   message: 'Login failed.Please try again',
+      // });
+    },
+  );
+};
+
+
+
+
+
+
+const getResponseInfo = async (error, result) => {
+  if (error) {
+    //Alert for the Error
+    alert('Error fetching data: ' + error.toString());
+  } else {
+    //response alert
+    // console.log(JSON.stringify(result));
+
+    
+    console.log("yh results hay",result)
+   
+    
+      const userdata = firestore_ref.doc(result.email)
+      userdata.set({
+        email: result.email,
+        id: result.email,
+        name: result.name,
+        // phonenumber: '',
+        // country: '',
+        // city: '',
+        // address: '',
+      }, { merge: true }).then(
+        AsyncStorage.setItem(
+          'userdetails',
+          JSON.stringify({
+            email: result.email,
+            id: result.name,
+          })
+        )
+      )
+
+    .then(() => {
+      empty();
+      navigation.replace('TabNavigations')
+      
+    })
+    .catch((error) => {
+      
+      alert(error)
+      console.log("Error---->", error);
+    })
+  }
+};
 
 
 
@@ -126,46 +234,7 @@ export default function Signin({ navigation }) {
   }
 
 
-
-
-  // const onGoogleButtonPress = async () => {
-  //   try {
-  //     await GoogleSignin.hasPlayServices();
-  //     const userInfo = await GoogleSignin.signIn().then(setuserdata(userInfo))
-
-  //     console.log("------>",userInfo.user.email);
-  //  //   setloader(true)
-  //     await firebase
-  //       .auth()
-  //       .signInWithCredential(userInfo.user.email)
-  //       .then((user) => {
-  //         console.log(user);
-  //         empty()
-  //      //   setloader(false)
-  //     //    navigation.replace('TabNavigations')
-
-  //       })
-
-
-
-  //     console.log("---->User INfo", userInfo);
-  //   } catch (error) {
-  //     console.log(error);
-  // if (error.code === statusCodes.SIGN_IN_CANCELLED) {
-  //   // user cancelled the login flow
-  // } else if (error.code === statusCodes.IN_PROGRESS) {
-  //   // operation (e.g. sign in) is in progress already
-  // } else if (error.code === statusCodes.PLAY_SERVICES_NOT_AVAILABLE) {
-  //   // play services not available or outdated
-  // } else {
-  //   // some other error happened
-  // }
-  //   }
-  // };
-
-
   async function LoginUser() {
-
     if (email === '') {
       setvalidateemail(true)
       return;
@@ -174,7 +243,6 @@ export default function Signin({ navigation }) {
       setvalidatepassword(true)
       return;
     }
-
     setloader(true)
     await firebase
       .auth()
@@ -187,16 +255,12 @@ export default function Signin({ navigation }) {
               email:  user.user.email,
               id:  user.user.email,
             })
-          )
-        
+          )  
         empty()
         setloader(false)
         navigation.replace('TabNavigations')
         console.log("DONE dona DOne");
       }
-
-
-
       )
       .catch((error) => {
         console.log('====================================');
@@ -212,6 +276,34 @@ export default function Signin({ navigation }) {
 
   }
 
+
+
+  async function onFacebookButtonPress() {
+    // Attempt login with permissions
+    console.log("Ok");
+    const result = await LoginManager.logInWithPermissions(['public_profile', 'email']);
+  
+    console.log('1====================================');
+    console.log(result);
+    console.log('1====================================');
+    if (result.isCancelled) {
+      throw 'User cancelled the login process';
+    }
+  
+  //   // Once signed in, get the users AccesToken
+  //   const data = await AccessToken.getCurrentAccessToken();
+  
+
+  //   if (!data) {
+  //     throw 'Something went wrong obtaining access token';
+  //   }
+  
+  //   // Create a Firebase credential with the AccessToken
+  //   const facebookCredential = auth.FacebookAuthProvider.credential(data.accessToken);
+  
+  //   // Sign-in the user with the credential
+  //  return auth().signInWithCredential(facebookCredential);
+  }
 
   return (
     <SafeAreaView style={Styles.Container}>
@@ -285,10 +377,13 @@ export default function Signin({ navigation }) {
         <Linesvg height={'24px'} width={'30px'} />
       </View>
       <View style={[Styles.svgmainstyle]}>
-        <View style={Styles.svgstyle}>
+        <TouchableOpacity 
+         onPress={() => loginWithfacebookHandler()}
+         
+        style={Styles.svgstyle}>
           <FaceBook height={'24px'} width={'24px'} />
           <Text style={Styles.fbgoogletext}>Facebook</Text>
-        </View>
+        </TouchableOpacity>
 
         {googleloader ?
           <ActivityLoader />
